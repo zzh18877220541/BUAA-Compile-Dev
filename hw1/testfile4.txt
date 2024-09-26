@@ -1,0 +1,7 @@
+int main() {
+    int b;
+    b = getint();
+    char c;
+    c = getchar();
+    printf("22371187\n");
+}

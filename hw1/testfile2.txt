@@ -1,0 +1,8 @@
+int main() {
+    int b;
+    b = getint();
+    char c;
+    c = getchar();
+    printf("22371187\n");
+    int a[3] = {1, 2, 3};
+}
