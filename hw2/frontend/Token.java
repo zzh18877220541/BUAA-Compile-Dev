@@ -1,3 +1,5 @@
+package frontend;
+
 public class Token {
     private TokenType type;
     private String value;
@@ -13,8 +15,8 @@ public class Token {
         return type;
     }
 
-    public String getValue() {
-        return value;
+    public int getLine() {
+        return line;
     }
 
     public String toString() {
