@@ -1,0 +1,2 @@
+@a = dso_local global i32 97
+@b = dso_local global i8 5

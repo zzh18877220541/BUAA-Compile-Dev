@@ -1,0 +1,6 @@
+int a = 'a';
+char b = 2 + 3;
+
+int main() {
+    return 0;
+}

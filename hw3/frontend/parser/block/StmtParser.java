@@ -142,16 +142,31 @@ public class StmtParser {
          */
         if (FirstToken.getType() == TokenType.RETURNTK) {
             returnToken = FirstToken;
+            int index0 = tokenListIterator.getCurrentIndex();
             Token nextToken = tokenListIterator.readNextToken();
-            if (nextToken.getType() != TokenType.SEMICN) {
+            if (nextToken.getType() == TokenType.IDENFR
+                    || nextToken.getType() == TokenType.CHRCON
+                    || nextToken.getType() == TokenType.INTCON
+                    || nextToken.getType() == TokenType.PLUS
+                    || nextToken.getType() == TokenType.MINU
+                    || nextToken.getType() == TokenType.NOT
+                    || nextToken.getType() == TokenType.LPARENT) {
                 tokenListIterator.unReadTokens(1);
                 addExp_return = addExpParser.parseAddExp();
+                nextToken = tokenListIterator.readNextToken();
+                if (nextToken.getType() == TokenType.ASSIGN) {
+                    int index1 = tokenListIterator.getCurrentIndex();
+                    tokenListIterator.unReadTokens(index1 - index0);
+                    addExp_return = null;
+                } else {
+                    tokenListIterator.unReadTokens(1);
+                }
             } else {
                 tokenListIterator.unReadTokens(1);
             }
             nextToken = tokenListIterator.readNextToken();
             if (nextToken.getType() == TokenType.SEMICN) {
-                semicolon_return = nextToken;
+                semicolon_return = new Token(TokenType.SEMICN, ";", returnToken.getLine());
             } else {
                 tokenListIterator.unReadTokens(1);
                 semicolon_return = new Token(TokenType.SEMICN, ";", returnToken.getLine());
@@ -289,8 +304,8 @@ public class StmtParser {
             nextToken = tokenListIterator.readNextToken();
             if (nextToken.getType() != TokenType.SEMICN) {
                 tokenListIterator.unReadTokens(1);
-                semicolon_singleExp = new Token(TokenType.SEMICN, ";", nextToken.getLine() - 1);
-                SyntaxErrorHandler.getInstance().WriteSyntaxError(ErrorType.i, nextToken.getLine() - 1);
+                semicolon_singleExp = new Token(TokenType.SEMICN, ";", FirstToken.getLine());
+                SyntaxErrorHandler.getInstance().WriteSyntaxError(ErrorType.i, FirstToken.getLine());
             } else {
                 semicolon_singleExp = nextToken;
             }
